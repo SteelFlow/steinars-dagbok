@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steinars Dagbok</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<header>
+  <div class="moon"></div>
+  <h1>STEINARS DAGBOK</h1>
+  <p class="subtitle">⚙️ Kan det lages, kan det automatiseres! ⚙️</p>
+</header>
+
+
+<div class="wrapper" id="entries-container">
+  <div class="loading">Laster dagboken ▌</div>
+</div>
+
+<footer>
+  ⛏ &nbsp; Steinars Dagbok &nbsp; ⛏ &nbsp;·&nbsp; Et Minecraft-prosjekt &nbsp; ⛏
+</footer>
+
+<script>
+  // ── Stars ──────────────────────────────────────────────
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      --d:${(Math.random()*4+2).toFixed(1)}s;
+      animation-delay:${(Math.random()*5).toFixed(1)}s;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // ── Entry list ─────────────────────────────────────────
+  // Legg til nye innlegg her i kronologisk rekkefølge:
+  const entries = [
+    'entries/dag-01.html',
+  ];
+
+  // ── Loader ─────────────────────────────────────────────
+  const container = document.getElementById('entries-container');
+
+  async function loadEntry(path) {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(`Kunne ikke laste ${path}: ${res.status}`);
+    return res.text();
+  }
+
+  async function loadAll() {
+    try {
+      const htmlFragments = await Promise.all(entries.map(loadEntry));
+      container.innerHTML = htmlFragments.join('\n');
+    } catch (err) {
+      container.innerHTML = `
+        <div style="
+          font-family:'VT323',monospace;
+          color:#c0392b;
+          font-size:1.3rem;
+          padding:2rem;
+          text-align:center;
+          letter-spacing:1px;
+        ">
+          ⚠ Feil ved lasting av dagbok:<br><br>
+          ${err.message}<br><br>
+          <span style="color:#888;font-size:1rem;">
+            Merk: fetch() krever en lokal webserver.<br>
+            Kjør f.eks. <code style="color:#fff">npx serve .</code> i denne mappen,<br>
+            eller bruk GitHub Pages / Netlify for publisering.
+          </span>
+        </div>`;
+    }
+  }
+
+  loadAll();
+</script>
+
+</body>
+</html>
