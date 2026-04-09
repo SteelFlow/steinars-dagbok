@@ -6,6 +6,7 @@
   <title>Steinars Dagbok</title>
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -27,6 +28,16 @@
 </footer>
 
 <script>
+  // ── Markdown bilde-renderer ───────────────────────────
+  marked.use({
+    renderer: {
+      image({ href, title, text }) {
+        return `<div class="screenshot"><img src="${href}" alt="${text}"></div>`
+          + (title ? `<div class="screenshot-caption">${title}</div>` : '');
+      }
+    }
+  });
+
   // ── Stars ──────────────────────────────────────────────
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 120; i++) {
@@ -46,22 +57,49 @@
   // ── Entry list ─────────────────────────────────────────
   // Legg til nye innlegg her i kronologisk rekkefølge:
   const entries = [
-    'entries/dag-01.html',
+    'entries/dag-01.md',
   ];
 
-  // ── Loader ─────────────────────────────────────────────
+  // ── Markdown-laster ────────────────────────────────────
   const container = document.getElementById('entries-container');
 
-  async function loadEntry(path) {
-    const res = await fetch(path);
-    if (!res.ok) throw new Error(`Kunne ikke laste ${path}: ${res.status}`);
-    return res.text();
+  function parseFrontmatter(text) {
+    const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    if (!match) return { meta: {}, body: text };
+    const meta = {};
+    match[1].split('\n').forEach(line => {
+      const colon = line.indexOf(':');
+      if (colon !== -1) meta[line.slice(0, colon).trim()] = line.slice(colon + 1).trim();
+    });
+    return { meta, body: match[2] };
+  }
+
+  function renderEntry(text) {
+    const { meta, body } = parseFrontmatter(text);
+    return `
+      <article class="entry">
+        <div class="entry-header">
+          <div class="day-badge">DAG ${meta.dag || '?'}</div>
+          <div class="entry-meta">
+            <div class="entry-title">${meta.tittel || ''}</div>
+            <div class="meta-tags">
+              ${meta.biom ? `<span class="tag biome">${meta.biom}</span>` : ''}
+              ${meta.koordinater ? `<span class="tag coords">${meta.koordinater}</span>` : ''}
+            </div>
+          </div>
+        </div>
+        <div class="entry-body">${marked.parse(body)}</div>
+      </article>`;
   }
 
   async function loadAll() {
     try {
-      const htmlFragments = await Promise.all(entries.map(loadEntry));
-      container.innerHTML = htmlFragments.join('\n');
+      const texts = await Promise.all(entries.map(async path => {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`Kunne ikke laste ${path}: ${res.status}`);
+        return res.text();
+      }));
+      container.innerHTML = texts.map(renderEntry).join('\n');
     } catch (err) {
       container.innerHTML = `
         <div style="
