@@ -5,7 +5,7 @@ biom: Klippeøyer
 koordinater: X:? Y:? Z:?
 ---
 
-Jeg våkner opp på det som virker som ei lita klippe ute i havet. Kan ikke huske helt hvordan jeg kom hit. Når jeg tenker etter så kan jeg ikke huske noen ting i det heletatt. Jeg husker at jeg heter Steinar. Jeg har noen bøker i lomma, men føler ikke helt for å lese dem nå. Jeg må finne mer ut hva som skjer her. Finne litt ly og et tre eller noe som jeg kan lage litt utstyr med.
+Jeg våkner opp på det som virker som ei lita klippe ute i havet. Kan ikke huske helt hvordan jeg kom hit. Når jeg tenker etter så kan jeg ikke huske noen ting i det hele tatt. Jeg husker at jeg heter Steinar. Jeg har noen bøker i lomma, men føler ikke helt for å lese dem nå. Jeg må finne mer ut hva som skjer her. Finne litt ly og et tre eller noe som jeg kan lage litt utstyr med.
 
 Ikke et eneste tre på hele øya! Jeg svømmer over til naboøya som ligger helt inntil. Det ser ut som om det i det minste er litt grass der. Ja! Jeg kan se et enslig tre langs klippeveggen!
 

@@ -7,6 +7,13 @@
 //   publiser dag-02.md 2026-04-10T15:20  → publisert kl. 15:20 norsk tid
 
 const { readFileSync, writeFileSync, existsSync } = require('fs');
+
+function parseDagFraFil(filsti) {
+  try {
+    const match = readFileSync(filsti, 'utf-8').match(/^---\n[\s\S]*?^dag:\s*(.+?)\s*$/m);
+    return match ? match[1] : null;
+  } catch { return null; }
+}
 const path = require('path');
 
 const [filArg, datoArg] = process.argv.slice(2);
@@ -16,7 +23,7 @@ if (!filArg) {
   process.exit(1);
 }
 
-const filsti = `${filArg}`;
+const filsti = filArg.replace(/\\/g, '/');
 
 if (!existsSync(filsti)) {
   console.warn(`Advarsel: finner ikke filen "${filsti}"`);
@@ -65,13 +72,15 @@ let entries = existsSync(REGISTER)
 
 const eksisterende = entries.find(e => e.path === filsti);
 const norskVisning = new Date(publisert).toLocaleString('nb-NO', { timeZone: 'Europe/Oslo' });
+const dag = parseDagFraFil(filsti);
 
 if (eksisterende) {
   eksisterende.publisert = publisert;
+  if (dag) eksisterende.dag = dag;
   console.log(`Oppdatert: ${filsti}  →  ${norskVisning} (norsk tid)`);
 } else {
-  entries.push({ path: filsti, publisert });
-  entries.sort((a, b) => a.path.localeCompare(b.path));
+  entries.push({ path: filsti, publisert, ...(dag && { dag }) });
+  entries.sort((a, b) => new Date(a.publisert) - new Date(b.publisert));
   console.log(`Lagt til:  ${filsti}  →  ${norskVisning} (norsk tid)`);
 }
 

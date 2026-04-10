@@ -59,6 +59,10 @@ header {
   to   { box-shadow: 0 0 60px 20px rgba(255,253,200,0.6); }
 }
 
+header h1 a {
+  color: inherit;
+  text-decoration: none;
+}
 header h1 {
   font-family: 'VT323', monospace;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -101,6 +105,33 @@ nav a:hover {
   color: #fff;
   border-color: var(--wood);
 }
+
+/* ── ENTRY NAV (single-post view) ── */
+.entry-nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: .5rem 0;
+  border-bottom: 2px solid #333;
+}
+.entry-nav > * {
+  flex: 1;
+}
+.entry-nav > :nth-child(2) {
+  text-align: center;
+}
+.entry-nav > :last-child {
+  text-align: right;
+}
+.entry-nav a {
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color .15s;
+}
+.entry-nav a:hover { color: var(--wood); }
 
 /* ── MAIN LAYOUT ── */
 .wrapper {
@@ -165,6 +196,21 @@ nav a:hover {
   color: var(--dirt);
   text-shadow: 2px 2px 0 rgba(0,0,0,.15);
   white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.day-badge:hover {
+  color: var(--gold);
+}
+.day-badge::after {
+  content: ' #';
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity .15s;
+  vertical-align: middle;
+}
+.day-badge:hover::after {
+  opacity: 0.5;
 }
 
 .entry-meta { flex: 1; min-width: 180px; }

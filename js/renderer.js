@@ -18,12 +18,13 @@ function parseFrontmatter(text) {
   return { meta, body: match[2] };
 }
 
-function renderEntry(text) {
+function renderEntry(text, slug) {
   const { meta, body } = parseFrontmatter(text);
+  const id = slug || `dag-${String(meta.dag).padStart(2, '0')}`;
   return `
-    <article class="entry">
+    <article class="entry" id="${id}">
       <div class="entry-header">
-        <div class="day-badge">DAG ${meta.dag || '?'}</div>
+        <a class="day-badge" href="#${id}" title="Permalink til dette innlegget">DAG ${meta.dag || '?'}</a>
         <div class="entry-meta">
           <div class="entry-title">${meta.tittel || ''}</div>
           <div class="meta-tags">
