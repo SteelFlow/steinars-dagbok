@@ -2,21 +2,27 @@ const container = document.getElementById('entries-container');
 
 async function loadAll() {
   try {
-    const res = await fetch('manifest.json');
-    if (!res.ok) throw new Error(`Kunne ikke laste manifest.json: ${res.status}`);
+    const res = await fetch('register.json');
+    if (!res.ok) throw new Error(`Kunne ikke laste register.json: ${res.status}`);
     const { entries } = await res.json();
 
     const now = new Date();
 
     const synlige = entries.filter(({ publisert }) => !publisert || new Date(publisert) <= now);
 
-    const texts = await Promise.all(synlige.map(async ({ path }) => {
+    const resultater = await Promise.allSettled(synlige.map(async ({ path }) => {
       const r = await fetch(path);
       if (!r.ok) throw new Error(`Kunne ikke laste ${path}: ${r.status}`);
       return r.text();
     }));
 
-    const rendered = texts.map(renderEntry);
+    resultater
+      .filter(r => r.status === 'rejected')
+      .forEach(r => console.error(r.reason));
+
+    const rendered = resultater
+      .filter(r => r.status === 'fulfilled')
+      .map(r => renderEntry(r.value));
 
     container.innerHTML = rendered.join('\n') || '<p>Ingen innlegg ennå.</p>';
   } catch (err) {
