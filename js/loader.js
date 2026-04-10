@@ -35,7 +35,6 @@ async function showSingle(entries, slug) {
 
   entryNav.innerHTML = `
     <div>${prev ? `<a href="#${slugFromPath(prev.path)}">← DAG ${dagLabel(prev)}</a>` : ''}</div>
-    <a href="/">Alle innlegg</a>
     <div>${next ? `<a href="#${slugFromPath(next.path)}">DAG ${dagLabel(next)} →</a>` : ''}</div>`;
   entryNav.hidden = false;
 
