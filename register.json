@@ -3,6 +3,11 @@
     {
       "path": "entries/dag-01.md",
       "publisert": "2026-04-07"
+    },
+    {
+      "path": "./entries/dag-02.md",
+      "publisert": "2026-04-13T19:42:38.482Z",
+      "dag": "2"
     }
   ]
 }
