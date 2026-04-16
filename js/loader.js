@@ -6,7 +6,7 @@ function slugFromPath(path) {
 }
 
 async function loadRegister() {
-  const res = await fetch('register.json');
+  const res = await fetch('register.json', { cache: 'no-store' });
   if (!res.ok) throw new Error(`Kunne ikke laste register.json: ${res.status}`);
   const { entries } = await res.json();
   const now = new Date();
