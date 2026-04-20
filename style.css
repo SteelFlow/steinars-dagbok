@@ -113,6 +113,11 @@ nav a:hover {
   margin-bottom: 1.5rem;
   padding: .5rem 0;
   border-bottom: 2px solid #333;
+  position: sticky;
+  top: -1px;
+  padding-top: calc(.5rem + 1px);
+  background-color: var(--night);
+  z-index: 50;
 }
 .entry-nav > * {
   flex: 1;

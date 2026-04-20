@@ -1,6 +1,7 @@
 const container = document.getElementById('entries-container');
 const entryNav = document.getElementById('entry-nav');
 
+
 function slugFromPath(path) {
   return path.replace(/^.*[/\\]/, '').replace(/\.md$/, '');
 }
@@ -37,8 +38,15 @@ async function showSingle(entries, slug) {
     <div>${prev ? `<a href="#${slugFromPath(prev.path)}">← DAG ${dagLabel(prev)}</a>` : ''}</div>
     <div>${next ? `<a href="#${slugFromPath(next.path)}">DAG ${dagLabel(next)} →</a>` : ''}</div>`;
   entryNav.hidden = false;
-
   container.innerHTML = renderEntry(text, slug);
+  const entry = container.querySelector('.entry');
+  if (entry) {
+    let absTop = 0;
+    let el = entry;
+    while (el) { absTop += el.offsetTop; el = el.offsetParent; }
+    const entryTop = absTop - entryNav.offsetHeight - 5;
+    window.scrollTo({ top: entryTop });
+  }
 }
 
 async function showAll(entries) {
