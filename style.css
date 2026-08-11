@@ -1,0 +1,536 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--natt);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(255,255,255,var(--rutenett)) 31px, rgba(255,255,255,var(--rutenett)) 32px),
+    repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(255,255,255,var(--rutenett)) 31px, rgba(255,255,255,var(--rutenett)) 32px);
+  background-size: 32px 32px;
+  font-family: 'Crimson Pro', Georgia, serif;
+  color: var(--blekk);
+}
+.side {
+  position: relative;
+  min-height: 100vh;
+}
+.stjernehimmel {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.stjerne {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: blink var(--d, 3s) ease-in-out infinite alternate;
+}
+@keyframes blink { from { opacity: 0.1; } to { opacity: 0.9; } }
+header {
+  position: relative; z-index: 10;
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  border-bottom: 4px solid var(--header-kant);
+  background: var(--header-flate);
+  overflow: hidden;
+}
+.mane {
+  width: 60px; height: 60px;
+  background: #fffde7;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 40px 10px rgba(255,253,200,0.4);
+  animation: glod 4s ease-in-out infinite alternate;
+  position: relative; z-index: 1;
+}
+@keyframes glod {
+  from { box-shadow: 0 0 30px 8px rgba(255,253,200,0.3); }
+  to   { box-shadow: 0 0 60px 20px rgba(255,253,200,0.6); }
+}
+header h1 { position: relative; z-index: 1; }
+header h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+header h1 {
+  font-family: 'VT323', monospace;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--gull);
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0 #5c3a00, 0 0 30px rgba(212,160,23,0.5);
+  line-height: 1;
+}
+header p.undertittel {
+  position: relative; z-index: 1;
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  color: var(--gress);
+  letter-spacing: 3px;
+  margin-top: .5rem;
+  opacity: .85;
+}
+
+.wrapper {
+  position: relative; z-index: 10;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+.siste-innlegg {
+  display: flex; flex-direction: column; gap: .2rem;
+  max-width: 860px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.5rem;
+  background: rgba(212,160,23,.1);
+  border: 2px solid var(--gull);
+  text-decoration: none;
+  transition: background .15s;
+}
+.siste-innlegg:hover { background: rgba(212,160,23,.2); }
+.siste-innlegg-merkelapp {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gull);
+}
+.siste-innlegg-tittel {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pergament);
+}
+.bok-overskrift {
+  font-family: 'VT323', monospace;
+  font-size: 1.9rem;
+  letter-spacing: 2px;
+  color: var(--blekk);
+  text-align: center;
+  padding: 1.6rem 1rem .8rem;
+  border-top: 3px double var(--jord);
+}
+
+.innholdsfortegnelse > .bok-trekkspill:first-child .bok-overskrift {
+  border-top: none;
+  padding-top: 1.3rem;
+}
+.bok-trekkspill > summary,
+.kapittel-trekkspill > summary {
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+  transition: background .15s;
+}
+.bok-trekkspill > summary::-webkit-details-marker,
+.kapittel-trekkspill > summary::-webkit-details-marker { display: none; }
+
+.bok-trekkspill > summary:hover,
+.kapittel-trekkspill > summary:hover { background: rgba(139,94,60,.08); }
+.bok-trekkspill > summary:focus-visible,
+.kapittel-trekkspill > summary:focus-visible {
+  outline: 2px solid var(--gull);
+  outline-offset: -2px;
+}
+.bok-trekkspill > summary::after,
+.kapittel-trekkspill > summary::after {
+  content: '▾';
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'VT323', monospace;
+  color: var(--jord);
+  line-height: 1;
+}
+.bok-trekkspill:not([open]) > summary::after,
+.kapittel-trekkspill:not([open]) > summary::after { content: '▸'; }
+
+.kapittel-trekkspill:not([open]) > summary:not(:has(.kapittel-innledning)) {
+  padding-bottom: .9rem;
+}
+.innholdsfortegnelse {
+  background: var(--pergament);
+  border: 3px solid var(--jord);
+  box-shadow: 6px 6px 0 #3a2010, 0 0 60px rgba(0,0,0,0.5);
+  padding-bottom: .5rem;
+}
+.tocinnhold-liste { list-style: none; }
+.tocinnhold-rad { border-bottom: 2px dashed var(--skille); }
+.tocinnhold-rad:last-child { border-bottom: none; }
+.tocinnhold-rad a {
+  display: flex; align-items: baseline; gap: 1rem;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  transition: background .15s;
+}
+.tocinnhold-rad a:hover { background: rgba(139,94,60,.08); }
+.tocinnhold-merke {
+  font-family: 'VT323', monospace;
+  font-size: 1.4rem;
+  color: var(--jord);
+  white-space: nowrap;
+  min-width: 4.5rem;
+}
+.tocinnhold-tittel {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.15rem;
+  color: var(--blekk);
+}
+.kapittelskilt-utskaret {
+  font-family: 'VT323', monospace;
+  font-size: 1.6rem;
+  font-weight: normal;
+  color: var(--jord);
+  text-align: center;
+  letter-spacing: 2px;
+  padding: 1.3rem 1rem .3rem;
+}
+.kapittel-innledning {
+  display: block;
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #6b5a3a;
+  text-align: center;
+  padding: 0 1.5rem;
+  margin-bottom: .8rem;
+}
+.wrapper > .kapittelskilt-utskaret {
+  color: var(--gull);
+  padding-top: 0;
+}
+.entry-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.entry-nav:last-of-type { margin-top: 1.5rem; margin-bottom: 0; }
+.entry-nav-forrige, .entry-nav-neste {
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  color: var(--gull);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color .15s;
+  max-width: 48%;
+}
+.entry-nav-neste { text-align: right; margin-left: auto; }
+.entry-nav-forrige:hover, .entry-nav-neste:hover { color: #fff; }
+.entry {
+  background: var(--flate);
+  border: 3px solid var(--kant);
+  box-shadow: var(--kort-skygge);
+  margin-bottom: 3rem;
+  position: relative;
+}
+.kortkant-revet {
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--pergament) 0px, var(--pergament) 8px,
+    transparent 8px, transparent 12px,
+    var(--pergament) 12px, var(--pergament) 20px
+  );
+  margin-bottom: -1px;
+}
+.entry-header {
+  display: flex; align-items: flex-start; flex-wrap: wrap;
+  gap: .75rem;
+  padding: 1.2rem 1.5rem .8rem;
+  border-bottom: 2px dashed var(--skille);
+}
+.merke {
+  font-family: 'VT323', monospace;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--jord);
+  text-shadow: 2px 2px 0 rgba(0,0,0,.15);
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+  transition: color .15s;
+}
+.merke:hover { color: var(--gull); }
+.entry-meta { flex: 1; min-width: 180px; }
+.entry-tittel {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--blekk);
+  line-height: 1.2;
+}
+.tagger {
+  display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .4rem;
+  list-style: none;
+}
+.tagg {
+  font-family: 'VT323', monospace;
+  font-size: .95rem;
+  padding: .1rem .5rem;
+  border: 1px solid;
+  letter-spacing: .5px;
+}
+.tagg-biom        { color: var(--tagg-biom); border-color: var(--tagg-biom); }
+.tagg-koordinater { color: var(--tagg-koordinater); border-color: var(--tagg-koordinater); }
+.tagg-standard    { color: var(--tagg-standard); border-color: var(--tagg-standard); }
+.brodtekst {
+  padding: 1.2rem 1.8rem 1.5rem;
+  font-size: 1.18rem;
+  line-height: 1.85;
+  color: var(--blekk);
+}
+.brodtekst p { margin-bottom: 1em; }
+.brodtekst p:last-child { margin-bottom: 0; }
+.brodtekst p:first-child::first-letter {
+
+  font-family: var(--initial-font);
+  float: var(--initial-float);
+  font-size: var(--initial-storrelse);
+  line-height: var(--initial-linje);
+  margin: var(--initial-marg);
+  color: var(--initial-farge);
+  text-shadow: var(--initial-skygge);
+}
+.bilde-boks {
+  margin: 1.2rem 1.8rem;
+  border: 3px solid var(--stein);
+  box-shadow: 4px 4px 0 #555;
+  background: #1a1a2e;
+  overflow: hidden;
+}
+.bilde-boks img {
+  width: 100%; height: auto;
+  display: block;
+  cursor: zoom-in;
+}
+.bildetekst {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  color: #777;
+  text-align: center;
+  margin: .3rem 1.8rem .8rem;
+  letter-spacing: .5px;
+  font-style: italic;
+}
+footer {
+  position: relative; z-index: 10;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  color: #555;
+  border-top: 2px solid #222;
+  letter-spacing: 1px;
+}
+
+.lysboks-bakteppe {
+  position: fixed; inset: 0;
+  background: rgba(5, 5, 10, 0.92);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+.lysboks-dialog {
+  position: relative;
+  width: 100%; height: 100%;
+  max-width: 1400px;
+  display: flex; flex-direction: column;
+  outline: none;
+}
+.lysboks-lukk {
+  position: absolute; top: -2.5rem; right: 0;
+  background: none; border: none;
+  color: var(--pergament, #f0e6c8);
+  font-size: 1.8rem; line-height: 1;
+  cursor: pointer;
+  padding: .5rem;
+  font-family: 'VT323', monospace;
+}
+.lysboks-lukk:hover { color: var(--gull, #d4a017); }
+.lysboks-scene {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+}
+.lysboks-bilde {
+  max-width: 100%; max-height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+@media (max-width: 600px) {
+  .entry-header { flex-direction: column; }
+  .merke { font-size: 2.2rem; }
+  .brodtekst { padding: 1rem 1.2rem; font-size: 1.05rem; }
+  .bilde-boks, .bildetekst {
+    margin-left: 1.2rem; margin-right: 1.2rem;
+  }
+}
+.kapittelskilt-tomrom {
+  font-family: 'Crimson Pro', serif;
+  font-weight: normal;
+  font-size: 1.2rem;
+  color: var(--blekk);
+  text-align: center;
+  padding: 1.3rem 1rem .3rem;
+  opacity: .7;
+}
+.liminal-rom {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.tapet {
+  position: absolute; inset: 0;
+  background-color: var(--tapet);
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.07) 0 2px, transparent 2px 26px,
+      rgba(255,255,255,.05) 26px 28px, transparent 28px 54px),
+    linear-gradient(to bottom, rgba(255,255,255,.06), rgba(0,0,0,.30));
+}
+.tapet::after {
+  content: '';
+  position: absolute; left: 7%; bottom: 0;
+  width: 90px; height: 36%;
+  background: linear-gradient(115deg, transparent 45%, var(--teppe) 45%);
+  opacity: .5;
+}
+
+.teppe {
+  position: absolute; inset: auto 0 0 0;
+  height: 20%;
+  background-color: var(--teppe);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0,0,0,.12) 0 3px, transparent 3px 6px),
+    linear-gradient(to bottom, rgba(0,0,0,.40), transparent 45%);
+}
+.himling {
+  position: absolute; inset: 0 0 auto 0;
+  height: 42%;
+  background-image:
+    repeating-linear-gradient(90deg,
+      var(--lysror) 0 92px, rgba(0,0,0,.55) 92px 132px),
+    linear-gradient(to bottom, rgba(255,255,255,.22), rgba(255,255,255,0));
+  background-size: 100% 34px, 100% 100%;
+  background-repeat: repeat-x, no-repeat;
+  background-position: top left, top left;
+  opacity: .5;
+  animation: flimmer 7s steps(1, end) infinite;
+}
+@keyframes flimmer {
+  0%, 42%, 47%, 61%, 100% { opacity: .5; }
+  43%, 60% { opacity: .2; }
+  45% { opacity: .6; }
+}
+.rorgate {
+  position: absolute; inset: 0;
+  opacity: var(--ror, 0);
+  background-image:
+    repeating-linear-gradient(180deg,
+      transparent 0 64px,
+      rgba(0,0,0,.32) 64px 72px,
+      rgba(255,255,255,.10) 72px 76px,
+      transparent 76px 190px);
+}
+.lysrorpanel {
+  width: 190px; height: 34px;
+  margin: 0 auto 1rem;
+  display: flex; gap: 5px;
+  padding: 5px;
+  background: rgba(0,0,0,.45);
+  border: 2px solid var(--stein);
+  position: relative; z-index: 1;
+  animation: surr 5s steps(1, end) infinite;
+}
+.lysror {
+  flex: 1;
+  background: var(--lysror);
+  box-shadow: 0 0 18px 3px var(--lysror);
+}
+@keyframes surr {
+  0%, 52%, 56%, 100% { opacity: 1; }
+  53%, 55% { opacity: .4; }
+}
+.kortkant-perforering {
+  height: 16px;
+  background-color: var(--flate);
+  background-image: radial-gradient(circle at 8px 8px, rgba(0,0,0,.5) 2.4px, transparent 3px);
+  background-size: 16px 16px;
+  border-bottom: 1px dashed var(--skille);
+  margin-bottom: -1px;
+}
+.kapittelskilt-sjablong {
+  font-family: 'VT323', monospace;
+  font-weight: normal;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 1.1rem auto .5rem;
+  padding: .3rem 1.2rem;
+  max-width: max-content;
+  background: var(--skilt-flate);
+  color: var(--skilt-blekk);
+  border: 3px solid var(--skilt-blekk);
+  box-shadow: 2px 2px 0 rgba(0,0,0,.28);
+}
+.bilde-korn-flate { position: relative; display: block; }
+.bilde-korn-flate img { filter: saturate(var(--metning, 1)) contrast(1.06) brightness(.96); }
+.bilde-korn-flate::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: .55;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.20) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, transparent 1px 4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .himling, .lysrorpanel, .stjerne, .mane { animation: none; }
+}
+.tema-dev {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+.tema-preview-etikett {
+  font-family: 'VT323', monospace;
+  font-size: 1.25rem;
+  font-weight: normal;
+  letter-spacing: 2px;
+  color: #cfcfd4;
+  padding: .4rem 0;
+}
+
+.tema-preview-scene {
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+  border: 1px solid #33333a;
+  background-color: var(--natt);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(255,255,255,var(--rutenett)) 31px, rgba(255,255,255,var(--rutenett)) 32px),
+    repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(255,255,255,var(--rutenett)) 31px, rgba(255,255,255,var(--rutenett)) 32px);
+  background-size: 32px 32px;
+}
+.tema-preview-forgrunn {
+  position: relative; z-index: 10;
+  padding: 0 0 1.5rem;
+}
+.tema-preview-header {
+  text-align: center;
+  padding: 1.2rem 1rem .8rem;
+  border-bottom: 4px solid var(--header-kant);
+  background: var(--header-flate);
+}
+.tema-preview-headertekst {
+  display: block;
+  font-family: 'VT323', monospace;
+  font-size: .95rem;
+  letter-spacing: 2px;
+  color: var(--gull);
+}
+.tema-preview .entry { margin: 1.6rem 2.2rem 0; }
+.tema-preview .brodtekst { font-size: 1rem; line-height: 1.7; }
+.tema-preview .bilde-boks { margin: 1rem; }
