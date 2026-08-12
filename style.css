@@ -95,7 +95,7 @@ header p.undertittel {
   font-family: 'Crimson Pro', serif;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--jord);
+  color: var(--side-blekk);
 }
 .bok-overskrift {
   font-family: 'VT323', monospace;
@@ -106,11 +106,11 @@ header p.undertittel {
   padding: 1.6rem 1rem .8rem;
   border-top: 3px double var(--jord);
 }
-
 .innholdsfortegnelse > .bok-trekkspill:first-child .bok-overskrift {
   border-top: none;
   padding-top: 1.3rem;
 }
+
 .bok-trekkspill > summary,
 .kapittel-trekkspill > summary {
   cursor: pointer;
@@ -120,7 +120,6 @@ header p.undertittel {
 }
 .bok-trekkspill > summary::-webkit-details-marker,
 .kapittel-trekkspill > summary::-webkit-details-marker { display: none; }
-
 .bok-trekkspill > summary:hover,
 .kapittel-trekkspill > summary:hover { background: rgba(139,94,60,.08); }
 .bok-trekkspill > summary:focus-visible,
@@ -141,10 +140,10 @@ header p.undertittel {
 }
 .bok-trekkspill:not([open]) > summary::after,
 .kapittel-trekkspill:not([open]) > summary::after { content: '▸'; }
-
 .kapittel-trekkspill:not([open]) > summary:not(:has(.kapittel-innledning)) {
   padding-bottom: .9rem;
 }
+
 .innholdsfortegnelse {
   background: var(--pergament);
   border: 3px solid var(--jord);
@@ -182,7 +181,8 @@ header p.undertittel {
   letter-spacing: 2px;
   padding: 1.3rem 1rem .3rem;
 }
-.kapittel-innledning {
+.kapittel-innledning,
+.bok-innledning {
   display: block;
   font-family: 'Crimson Pro', serif;
   font-style: italic;
@@ -279,6 +279,7 @@ header p.undertittel {
 }
 .brodtekst p { margin-bottom: 1em; }
 .brodtekst p:last-child { margin-bottom: 0; }
+
 .brodtekst p:first-child::first-letter {
 
   font-family: var(--initial-font);
@@ -320,7 +321,6 @@ footer {
   border-top: 2px solid #222;
   letter-spacing: 1px;
 }
-
 .lysboks-bakteppe {
   position: fixed; inset: 0;
   background: rgba(5, 5, 10, 0.92);
@@ -396,7 +396,6 @@ footer {
   background: linear-gradient(115deg, transparent 45%, var(--teppe) 45%);
   opacity: .5;
 }
-
 .teppe {
   position: absolute; inset: auto 0 0 0;
   height: 20%;
@@ -423,6 +422,7 @@ footer {
   43%, 60% { opacity: .2; }
   45% { opacity: .6; }
 }
+
 .rorgate {
   position: absolute; inset: 0;
   opacity: var(--ror, 0);
@@ -460,6 +460,7 @@ footer {
   border-bottom: 1px dashed var(--skille);
   margin-bottom: -1px;
 }
+
 .kapittelskilt-sjablong {
   font-family: 'VT323', monospace;
   font-weight: normal;
@@ -480,6 +481,7 @@ footer {
 .bilde-korn-flate::after {
   content: '';
   position: absolute; inset: 0;
+
   pointer-events: none;
   opacity: .55;
   background-image:
@@ -502,7 +504,6 @@ footer {
   color: #cfcfd4;
   padding: .4rem 0;
 }
-
 .tema-preview-scene {
   position: relative;
   overflow: hidden;
