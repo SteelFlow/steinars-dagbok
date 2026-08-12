@@ -95,7 +95,7 @@ header p.undertittel {
   font-family: 'Crimson Pro', serif;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--pergament);
+  color: var(--jord);
 }
 .bok-overskrift {
   font-family: 'VT323', monospace;
