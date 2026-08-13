@@ -422,17 +422,6 @@ footer {
   43%, 60% { opacity: .2; }
   45% { opacity: .6; }
 }
-
-.rorgate {
-  position: absolute; inset: 0;
-  opacity: var(--ror, 0);
-  background-image:
-    repeating-linear-gradient(180deg,
-      transparent 0 64px,
-      rgba(0,0,0,.32) 64px 72px,
-      rgba(255,255,255,.10) 72px 76px,
-      transparent 76px 190px);
-}
 .lysrorpanel {
   width: 190px; height: 34px;
   margin: 0 auto 1rem;
@@ -460,7 +449,6 @@ footer {
   border-bottom: 1px dashed var(--skille);
   margin-bottom: -1px;
 }
-
 .kapittelskilt-sjablong {
   font-family: 'VT323', monospace;
   font-weight: normal;
@@ -471,17 +459,17 @@ footer {
   margin: 1.1rem auto .5rem;
   padding: .3rem 1.2rem;
   max-width: max-content;
+
   background: var(--skilt-flate);
   color: var(--skilt-blekk);
   border: 3px solid var(--skilt-blekk);
   box-shadow: 2px 2px 0 rgba(0,0,0,.28);
 }
 .bilde-korn-flate { position: relative; display: block; }
-.bilde-korn-flate img { filter: saturate(var(--metning, 1)) contrast(1.06) brightness(.96); }
+.bilde-korn-flate img { filter: contrast(1.06) brightness(.96); }
 .bilde-korn-flate::after {
   content: '';
   position: absolute; inset: 0;
-
   pointer-events: none;
   opacity: .55;
   background-image:
