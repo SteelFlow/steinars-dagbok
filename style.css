@@ -449,6 +449,7 @@ footer {
   border-bottom: 1px dashed var(--skille);
   margin-bottom: -1px;
 }
+
 .kapittelskilt-sjablong {
   font-family: 'VT323', monospace;
   font-weight: normal;
@@ -459,7 +460,6 @@ footer {
   margin: 1.1rem auto .5rem;
   padding: .3rem 1.2rem;
   max-width: max-content;
-
   background: var(--skilt-flate);
   color: var(--skilt-blekk);
   border: 3px solid var(--skilt-blekk);
