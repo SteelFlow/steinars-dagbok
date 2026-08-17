@@ -458,18 +458,6 @@ footer {
   box-shadow: 2px 2px 0 rgba(0,0,0,.28);
 }
 
-.bilde-korn-flate { position: relative; display: block; }
-.bilde-korn-flate img { filter: contrast(1.06) brightness(.96); }
-.bilde-korn-flate::after {
-  content: '';
-  position: absolute; inset: 0;
-  pointer-events: none;
-  opacity: .55;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(0,0,0,.20) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, transparent 1px 4px);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .himling, .lysrorpanel, .stjerne, .mane { animation: none; }
 }
