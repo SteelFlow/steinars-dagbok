@@ -279,9 +279,7 @@ header p.undertittel {
 }
 .brodtekst p { margin-bottom: 1em; }
 .brodtekst p:last-child { margin-bottom: 0; }
-
 .brodtekst p:first-child::first-letter {
-
   font-family: var(--initial-font);
   float: var(--initial-float);
   font-size: var(--initial-storrelse);
@@ -317,8 +315,8 @@ footer {
   padding: 2rem 1rem;
   font-family: 'VT323', monospace;
   font-size: 1.1rem;
-  color: #555;
-  border-top: 2px solid #222;
+  color: var(--footer-blekk);
+  border-top: 2px solid var(--footer-kant);
   letter-spacing: 1px;
 }
 .lysboks-bakteppe {
@@ -389,13 +387,6 @@ footer {
       rgba(255,255,255,.05) 26px 28px, transparent 28px 54px),
     linear-gradient(to bottom, rgba(255,255,255,.06), rgba(0,0,0,.30));
 }
-.tapet::after {
-  content: '';
-  position: absolute; left: 7%; bottom: 0;
-  width: 90px; height: 36%;
-  background: linear-gradient(115deg, transparent 45%, var(--teppe) 45%);
-  opacity: .5;
-}
 .teppe {
   position: absolute; inset: auto 0 0 0;
   height: 20%;
@@ -441,6 +432,7 @@ footer {
   0%, 52%, 56%, 100% { opacity: 1; }
   53%, 55% { opacity: .4; }
 }
+
 .kortkant-perforering {
   height: 16px;
   background-color: var(--flate);
@@ -465,6 +457,7 @@ footer {
   border: 3px solid var(--skilt-blekk);
   box-shadow: 2px 2px 0 rgba(0,0,0,.28);
 }
+
 .bilde-korn-flate { position: relative; display: block; }
 .bilde-korn-flate img { filter: contrast(1.06) brightness(.96); }
 .bilde-korn-flate::after {
@@ -476,6 +469,7 @@ footer {
     repeating-linear-gradient(0deg, rgba(0,0,0,.20) 0 1px, transparent 1px 3px),
     repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, transparent 1px 4px);
 }
+
 @media (prefers-reduced-motion: reduce) {
   .himling, .lysrorpanel, .stjerne, .mane { animation: none; }
 }
